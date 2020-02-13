@@ -120,10 +120,10 @@ def packagesIndex(request):
 		offset=0
 		if tempoffset > 0:
 			offset=tempoffset * limit
-		packages =Packages.objects.raw("select * from packages limit 3 offset %s",[offset])
+		packages =Packages.objects.raw("select * from packages order by id desc limit 3 offset %s",[offset])
 
 	else:
-		packages =Packages.objects.raw("select * from packages limit 3 offset 0")
+		packages =Packages.objects.raw("select * from packages order by id desc limit 3 offset 0")
 	count=Packages.objects.count()
 	return render(request,"packages/index.html",{'packages':packages,'counts':count,'page':page})
 
