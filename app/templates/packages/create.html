@@ -1,0 +1,63 @@
+{% extends "layout.html" %}	
+{% block content %}	
+
+<script>
+    $(document).ready(()=>{
+        $(".sidebar").find (".active").removeClass("active");
+        $("#packages").addClass("active");
+    });
+</script>
+
+<form  class=" w-50 pl-5 mt-2" method="post" action="/packages/create" enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="row form-row" >
+    <div class="col-md-6">
+        <div class="form-group">
+			<label>Image</label>
+			<input type="file" name="image" class="custom-file-input" id="customFile" required>
+			<label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
+</div>
+
+<div class="row form-row" >
+    <div class="col-md-6">
+        <div class="form-group">
+			<label>TITLE</label>
+			<input type="text" name="name" class="form-control" required>
+        </div>
+    </div>
+</div>
+
+
+<div class="row form-row" >
+    <div class="col-md-6">
+        <div class="form-group">
+			<label>DESCRIPTION</label>
+			<textarea name="description" class="form-control" required> </textarea>
+        </div>
+    </div>
+</div>
+
+<div class="row form-row" >
+    <div class="col-md-6">
+        <div class="form-group">
+			<label>PRICE</label>
+			<input type="number" name="price" class="form-control"required> 
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- username:{{form.name}}
+email:{{form.email}}
+password:{{form.password}}
+image:{{form.image}}  -->
+<button type="submit ">Submit</button>
+</form>
+{% endblock content %}	

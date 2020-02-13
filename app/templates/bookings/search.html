@@ -1,0 +1,19 @@
+{% for book in bookings %}
+	 
+			<tr>
+                {% load static %}
+                <td>{{book.id}}</td>
+				<td>{{book.packages.name}}</td>
+				<td>{{book.name }}</td>
+                <td>{{book.email}}</td>
+                <td>{{book.contactno}}</td>
+                <td>{{book.address}}</td>
+                <td>{{book.date}}</td>
+                <td>{{book.numberofpeople}}</td>
+
+
+
+				<td><a class\ href="bookings/edit/{{book.id}}">Edit </a> | <a href="bookings/delete/{{book.id}}"> Delete</a></td>
+			</tr>
+	
+{% endfor %}

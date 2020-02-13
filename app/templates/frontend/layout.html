@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static  %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tours and travels</title>
+    
+    <link rel="stylesheet" href="{% static 'frontend/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/main.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="icon" href="{% static 'images/logo.png/' %}" type="image/png" sizes="16x16">
+
+    <script src="{% static 'frontend/js/main.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{% static 'images/logo.png/' %}" alt="paradigmlogo" class="logo">
+
+            <nav>
+                <a href="#" class="hide-desktop">
+                    <img src="{% static 'images/toggle.svg/' %}" alt="toggle menu" class="menu" id="menu">
+                </a>
+
+                <ul class="show-desktop hide-mobile" id="nav">
+                    <li id="exit" class="exit-btn hide-desktop">
+                        <img src="{% static 'images/exit.svg/'%}" alt="exit menu">
+                    </li>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/frontend/package">PACKAGES</a></li>
+                    <li><a href="/frontend/booking">BOOKING</a></li>
+                    <li><a href="/frontend/contact">CONTACT</a></li>
+                    <li><a href="/frontend/aboutus">ABOUT US</a></li>
+                    <li><a href="/login">LOGIN</a></li>
+
+                </ul>
+            </nav>
+        </header>
+
+    </div>
+    {% block content %}
+
+    {% endblock content %}
+    <footer>
+        <div class="footer-container">
+            <div class="container">
+                <a href="#">
+                    <img src="{% static 'images/logo.png/' %}" class="logo" alt="logo">
+                </a>
+                <p class="address">Satdobato, Lalitpur<br>Nepal</p>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="/frontend/aboutus">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <ul class="social-network social-circle">
+                      <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                      <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                      <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                      <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                      <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+        
+    </footer>
+
+
+    <script>
+    
+        var menu = document.getElementById('menu');
+        var nav = document.getElementById('nav');
+        var exit = document.getElementById('exit');
+
+        menu.addEventListener('click', function(e) {
+            nav.classList.toggle('hide-mobile');
+            e.preventDefault();
+        });
+
+        exit.addEventListener('click', function(e) {
+            nav.classList.add('hide-mobile');
+            e.preventDefault();
+        });
+
+    </script>
+
+</body>
+
+</html>

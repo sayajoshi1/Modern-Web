@@ -1,0 +1,89 @@
+{% extends "layout.html" %}	
+{% block content %}
+<div class="row py-2">
+<div class ="col-md-6">	
+<a style="margin-top:10px; margin-bottom:10px" id ="btnadd" href="users/create" class="btn btn-dark font-weight-bold" >
+ Add new Member</a>
+</div>  
+<div class="col-md-6">
+<input style="margin-top:10px; margin-bottom:10px " type="text" id="search" class="form-control col-md-4 float-right "  placeholder="Search here" style="margin-left: 10px"/>
+</div>
+</div>
+<table class="table ">
+	<thead>
+		<th>ID</th>
+		<th>IMAGE</th>
+		<th>NAME</th>
+		<th>EMAIL</th>
+		<th>PASSWORD</th>
+		<th>CONTACT NUMBER</th>
+		<th>ACTION</th>
+
+	</thead>
+	
+
+<tbody>
+{% for user in users %}
+	 
+			<tr>
+				<td>{{user.id}}</td>
+				{% load static %}
+				<td><img class="rounded" width="40"  src="{% static '/images/' %}{{user.image }}"></td>
+				<td>{{user.name }}</td>
+				<td>{{user.email }}</td>
+				<td>{{user.password}}</td>
+				<td>{{user.contactno}}</td>
+				<td><a href="users/edit/{{user.id}}">Edit </a> | <a href="users/delete/{{user.id}}"> Delete</a></td>
+
+			</tr>
+	
+
+{% endfor %}
+
+</tbody>
+</table>
+<form method="post" action="/users">
+{% csrf_token %}
+	<button type="submit" name="prev" value="prev " id="prev">prev</button>
+	<input style="width:40px; "type="number" value="{{page}}" name="page" id="page"/>
+	<button type="submit" name="next" value="next" id="next ">next</button>
+</form>
+<script>
+	$(document).ready(()=>{
+		$(".sidebar").find (".active").removeClass("active");
+		$("#user").addClass("active");
+
+
+		$("#search").keyup(()=>{
+			$.ajax({
+				data:{search:$("#search").val()},
+				url:'/search',
+				method:'GET',
+				success:function(data){
+					console.log(data);
+					$("tbody tr").remove();
+					var html="";
+					for(d of data){
+						html+="<tr>";
+						html+="<td>"+d.id+"</td>";
+						html+="<td><img class='rounded' width='40' src='{% static '/images/' %}"+d.image+"' /></td>";
+						html+="<td>"+d.name+"</td>";
+						html+="<td>"+d.email+"</td>";
+						html+="<td>"+d.password+"</td>";
+						html+="<td>"+d.contactno+"</td>";
+						html+="<td><a href='users/edit/"+d.id+ "'>Edit</a> | <a href='users/delete/"+d.id+ "'> Delete</a></td>";
+						html+="</tr>";
+						
+					}
+					$("tbody").append(html);
+
+				},error:function(error){
+					console.log(error)
+				},complete:function(){
+					console.log("complete")
+				}
+			})
+		})
+	})
+</script>
+{% endblock content %}

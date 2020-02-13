@@ -1,0 +1,65 @@
+
+{% extends "frontend/layout.html" %}
+{% block content %}
+{% load static  %}
+<div class="container">
+	<div class="row"> 
+		<div class="col-mid-5 col-sm-3 col-xs-11 "> </div>
+            <div class="col-mid-5 col-sm-6 col-xs-11 " style="padding-bottom: 20px">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                         {{ message | safe }}
+                     </div>
+                {% endfor %}
+                <h3 class=" font-weight-bold text-danger">BOOK HERE</h3>
+					<form method="post" action="/bookingscreate" class="form-container text-left border shadow p-4 mb-6 bg-white rounded" enctype="multipart/form-data">
+					{% csrf_token %}
+						<div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" class="form-control" placeholder="Full Name" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="email" class="form-control" placeholder="Email Address" type="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactno">Contact Number</label>
+                            <input name="contactno" class="form-control" placeholder="Contact Number" type="text" required>
+                        </div>
+                           
+                        <div class="form-group">
+                            <label for="Address">Address</label>
+                            <input name="address" type="text" class="form-control" id="Address" placeholder=" Address" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="packages">
+                                <option selected=""> Select Package</option>
+                                {% for pkg in packages %}
+                                <option value="{{pkg.id}}">{{pkg.name}}</option>
+                                {% endfor%}
+                            </select>
+                        </div>  
+                            
+                        <div class="form-group">
+                            <label for="email">Date</label>
+                            <input name="date" class="form-control" type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Number of People</label>
+                            <input name="numberofpeople" type="number" class="form-control" id="number" placeholder="People" required>
+                        </div>
+                        
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-block btn-secondary"> Book  </button>
+                        </div> <!-- form-group// -->      
+                    
+                    </form>   
+            </div>
+    </div>
+</div>
+
+{% endblock content %}

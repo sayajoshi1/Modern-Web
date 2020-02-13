@@ -1,0 +1,43 @@
+{% extends "frontend/layout.html" %}
+{% block content %}
+{% load static%}
+<div class="container">
+<!-- <div class="pcontainer"> -->
+    <div class="mid">
+            <h3 class="font-weight-bold"> OUR PACKAGES </h3>
+    </div>
+
+<div class="package-content">
+
+    {% for pkg in packages %}
+    <div class="row my-2  border shadow p-4 mb-6 bg-white rounded  ">
+    <div class="col-md-6 ">
+    <div class="package-image">
+        <img src="{% static '/images/' %}{{pkg.image}}" >
+
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="title">
+        <h2>{{pkg.name}}</h2>
+
+    </div>
+    <div class="descrip">
+        <p style="text-align: left;">{{pkg.description}}</p>
+
+    </div>
+    <div class="price">
+    <p >Price: Rs{{pkg.price}} per person</p>
+        
+
+        <button> <a href="/frontend/booking"> Book now </a></button>
+    </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- </div> -->
+
+</div>
+{% endblock content %}

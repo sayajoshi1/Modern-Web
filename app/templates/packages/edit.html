@@ -1,0 +1,55 @@
+{% extends "layout.html" %}	
+{% block content %}	
+<script>
+    $(document).ready(()=>{
+        $(".sidebar").find (".active").removeClass("active");
+        $("#packages").addClass("active");
+    });
+</script>
+<form method="post" action="/packages/update/{{packages.id}}" enctype="multipart/form-data">
+{% csrf_token %}
+
+{% load static %}
+<div class="row form-row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Image</label>
+            <img src="{% static '/images/' %}{{packages.image}}"/>
+            <input type="file" name="image" required/>
+        </div>
+    </div>
+</div>
+
+<div class="row form-row" >
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" value="{{packages.name}}" name="name" required/>
+        </div>
+    </div>
+</div>
+
+<div class="row form-row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>DESCRIPTION</label>
+            <input type="text" value="{{packages.description}}" name="description" required> 
+        </div>
+    </div>
+</div>
+
+<div class="row form-row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>PRICE</label>
+            <input type="number" value="{{packages.price}}" name="price" required/>   
+        </div>
+    </div>
+</div>
+
+
+
+
+<button type="submit"> submit </button>
+</form>
+{% endblock content %}	

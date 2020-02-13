@@ -1,0 +1,21 @@
+{% extends "frontend/layout.html" %}
+{% block content %}
+{% load static%}
+<div class="container">
+    <div class="row">
+        <div class="demo"></div>
+    </div>
+    <div class="row  border shadow p-4 mb-6 bg-white rounded">
+        <div class="col-md-12">
+            <h1>{{packages.first.name}}</h1>
+            <img src="{% static '/images/' %}{{packages.first.image}}" width="50%">
+            <br>
+            <br>
+            <h5 class="text-left">{{packages.first.description}}</h5>
+            <h5>The price for this package is: Rs,{{packages.first.price}} per person.</h6>
+            <h5>Tax and VAT is not included.</h6>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

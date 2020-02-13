@@ -1,0 +1,26 @@
+body{
+background: red;
+}
+
+.sidebar{
+	padding: 0px;
+	height: 110vh;
+	border: solid 1px #5d5f635c;
+
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color:#6c757d !important;
+    border-color: #6c757d !important;
+}
+
+td a {
+    color:#07519b !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+.logo{
+    width: 10%;
+}
+

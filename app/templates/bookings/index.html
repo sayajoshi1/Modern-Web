@@ -1,0 +1,72 @@
+{% extends "layout.html" %}	
+{% block content %}
+{% load static %}
+<script>
+    $(document).ready(()=>{
+        $(".sidebar").find (".active").removeClass("active");
+        $("#bookings").addClass("active");
+
+		$("#search").keyup(()=>{
+			$.ajax({
+				data:{search:$("#search").val()},
+				url:'bookings/search',
+				method:'GET',
+				success:function(data){
+					console.log(data);
+					$("tbody tr").remove();
+					console.log(data)
+					$("tbody").append(data.data);
+
+				},error:function(error){
+					console.log(error)
+				},complete:function(){
+					console.log("complete")
+				}
+			})
+		})
+    });
+</script>
+
+<div class="row py-2">
+
+<div class="col-md-6">
+<input style="margin-top:10px; margin-bottom:10px " type="text" id="search" class="form-control col-md-4 float-right " placeholder="Search here" style="margin-left: 10px"/>
+</div>
+</div>
+<table class="table">	
+		<thead>
+            <th>ID</th>
+		    <th>Package</th>
+			<th>NAME</th>
+			<th>EMAIL</th>
+            <th>CONTACT NUMBER</th>
+            <th>ADDRESS</th>
+            <th>DATE</th>
+            <th>NUMBER OF PEOPLE</th>
+		</thead>
+<tbody>
+{% for book in bookings %}	 
+			<tr>
+                {% load static %}
+                <td>{{book.id}}</td>
+				<td>{{book.packages.name}}</td>
+				<td>{{book.name }}</td>
+                <td>{{book.email}}</td>
+                <td>{{book.contactno}}</td>
+                <td>{{book.address}}</td>
+                <td>{{book.date}}</td>
+                <td>{{book.numberofpeople}}</td>
+				<td><a class\ href="bookings/edit/{{book.id}}">Edit </a> | <a href="bookings/delete/{{book.id}}"> Delete</a></td>
+			</tr>
+	
+{% endfor %}
+</tbody>
+</table>
+<form method="post" action="/bookings ">
+{% csrf_token %}
+	<button type="submit" name="prev" value="prev " id="prev">prev</button>
+	<input style="width:40px; "type="number" value="{{page}}" name="page" id="page"/>
+	<button type="submit" name="next" value="next" id="next ">next</button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}	
+{% block content %}
+{% load static %}
+<script>
+    $(document).ready(()=>{
+        $(".sidebar").find (".active").removeClass("active");
+        $("#packages").addClass("active");
+
+		$("#search").keyup(()=>{
+			$.ajax({
+				data:{search:$("#search").val()},
+				url:'packages/search',
+				method:'GET',
+				success:function(data){
+					console.log(data);
+					$("tbody tr").remove();
+					var html="";
+					for(d of data){
+						html+="<tr>";
+						html+="<td>"+d.id+"</td>";
+						html+="<td><img class='rounded' width='40' src='{% static '/images/' %}"+d.image+"' /></td>";
+						html+="<td>"+d.name+"</td>";
+						html+="<td>"+d.description+"</td>";
+						html+="<td>"+d.price+"</td>";
+						html+="<td><a href='packages/edit/"+d.id+ "'>Edit</a> | <a href='packages/delete/"+d.id+ "'> Delete</a></td>";
+						html+="</tr>";
+						
+					}
+					$("tbody").append(html);
+
+				},error:function(error){
+					console.log(error)
+				},complete:function(){
+					console.log("complete")
+				}
+			})
+		})
+    });
+</script>
+
+<div class="row py-2">
+<div class ="col-md-6">	
+<a style="margin-top:10px; margin-bottom:10px " id ="btnadd" href="packages/create" class="btn btn-dark font-weight-bold" >
+ Add a Package</a>
+</div>  
+<div class="col-md-6">
+<input style="margin-top:10px; margin-bottom:10px " type="text" id="search" class="form-control col-md-4 float-right " placeholder="Search here" style="margin-left: 10px"/>
+</div>
+</div>
+<table class="table">
+	
+		<thead>
+			<th>IMAGE</th>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>PRICE</th>
+		</thead>
+<tbody>
+{% for pkg in packages %}
+	 
+			<tr>
+				{% load static %}
+				<td><img class="rounded" width="60" height="60"  src="{% static '/images/' %}{{pkg.image }}"></td>
+				<td>{{pkg.name }}</td>
+				<td>{{pkg.description }}</td>
+                <td>{{pkg.price}}</td>
+				<td><a class\ href="packages/edit/{{pkg.id}}">Edit </a> | <a href="packages/delete/{{pkg.id}}"> Delete</a></td>
+			</tr>
+	
+{% endfor %}
+
+</tbody>
+</table>
+<form method="post" action="/packages  " class="pb-4">
+{% csrf_token %}
+	<button type="submit" name="prev" value="prev " id="prev" class=>prev</button>
+	<input style="width:40px; "type="number" value="{{page}}" name="page" id="page"/>
+	<button type="submit" name="next" value="next" id="next ">next</button>
+</form>
+
+{% endblock content %}
