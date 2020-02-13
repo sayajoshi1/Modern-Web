@@ -26,7 +26,6 @@ def entry( request):
 	request.session['password']=request.POST['password']
 	return redirect("/admin")
 
-# @Authenticate.valid_user
 def login(request):
 	if 'email' not in request.session:
 		return render(request,'login.html')
@@ -62,10 +61,10 @@ def usersIndex(request):
 		offset=0
 		if tempoffset > 0:
 			offset=tempoffset * limit
-		users =User.objects.raw("select * from user limit 5 offset %s",[offset])
+		users =User.objects.raw("select * from user order by id desc limit 5 offset %s",[offset])
 
 	else:
-		users =User.objects.raw("select * from user limit 5 offset 0")
+		users =User.objects.raw("select * from user order by id desc limit 5 offset 0")
 	count=User.objects.count()
 	return render(request,"users/index.html",{'users':users,'counts':count,'page':page})
 
@@ -178,15 +177,14 @@ def bookingsIndex(request):
 		offset=0
 		if tempoffset > 0:
 			offset=tempoffset * limit
-		bookings =Bookings.objects.raw("select * from bookings limit 5 offset %s",[offset])
+		bookings =Bookings.objects.raw("select * from bookings order by id desc limit 5 offset %s",[offset])
 
 	else:
-		bookings =Bookings.objects.raw("select * from bookings limit 5 offset 0")
+		bookings =Bookings.objects.raw("select * from bookings order by id desc limit 5 offset 0")
 	count=Bookings.objects.count()
 	return render(request,"bookings/index.html",{'bookings':bookings,'counts':count,'page':page})
 
 
-# @Authenticate.valid_user
 def bookingsCreate(request):
 	if request.method=="POST":
 		form=BookingsForm(request.POST,request.FILES)
